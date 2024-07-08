@@ -4,8 +4,10 @@ import { authApi } from "../redux/fetures/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
 import { useAppDispatch } from "../redux/hooks";
 import { setUser } from "../redux/fetures/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { handleSubmit, register } = useForm();
   const [login] = authApi.useLoginMutation();
@@ -14,9 +16,9 @@ const Login = () => {
     const result = await login(data).unwrap();
     const token = result.data.accessToken;
     const user = verifyToken(token);
-    console.log(user);
-    console.log(token);
     dispatch(setUser({ user, token }));
+
+    navigate(`/${user.role}/dashboard`);
   };
 
   return (

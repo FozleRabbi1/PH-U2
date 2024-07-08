@@ -4,26 +4,29 @@ import { sideBarGenerator } from "../../utils/sideBarGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPaths } from "../../routes/student.routes";
+import { useAppSelector } from "../../redux/hooks";
+import { useCurrentUser } from "../../redux/fetures/auth/authSlice";
+
+const userRole = {
+  ADMIN: "admin",
+  FACULTY: "faculty",
+  STUDENT: "student",
+};
 
 const SideBar = () => {
-  const UserRole = {
-    ADMIN: "admin",
-    FACULTY: "faculty",
-    STUDENT: "student",
-  };
-  const user = "admin";
+  const user = useAppSelector(useCurrentUser);
 
   let sideBarItems;
-  switch (user) {
-    case UserRole.ADMIN:
-      sideBarItems = sideBarGenerator(adminPaths, UserRole.ADMIN);
+  switch (user!.role) {
+    case userRole.ADMIN:
+      sideBarItems = sideBarGenerator(adminPaths, userRole.ADMIN);
       break;
-    case UserRole.FACULTY:
-      sideBarItems = sideBarGenerator(facultyPaths, UserRole.FACULTY);
+    case userRole.FACULTY:
+      sideBarItems = sideBarGenerator(facultyPaths, userRole.FACULTY);
       break;
 
-    case UserRole.STUDENT:
-      sideBarItems = sideBarGenerator(studentPaths, UserRole.STUDENT);
+    case userRole.STUDENT:
+      sideBarItems = sideBarGenerator(studentPaths, userRole.STUDENT);
       break;
 
     default:
