@@ -11,9 +11,7 @@ const MainLayout = () => {
         <SideBar></SideBar>
         <Layout>
           <Header>
-            <h2 style={{ color: "white" }}>
-              PH-U-Again ( Module : 28-4 থেকে সুরু হবে ){" "}
-            </h2>
+            <h2 style={{ color: "white" }}>PH-U-Again</h2>
           </Header>
           <Content style={{ margin: "24px 16px 0" }}>
             <div
